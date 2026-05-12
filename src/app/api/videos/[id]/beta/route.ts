@@ -89,7 +89,7 @@ export async function POST(
 
     const { data: video } = await supabase
       .from('videos')
-      .select('id, video_url, status')
+      .select('id, user_id, video_url, status')
       .eq('id', id)
       .single()
 
