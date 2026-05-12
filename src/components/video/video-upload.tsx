@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useState } from 'react'
-import { useDropzone } from 'react-dropzone'
+import { useDropzone, type FileRejection } from 'react-dropzone'
 import { cn, validateVideoFile } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
@@ -38,7 +38,7 @@ export function VideoUpload({
   const [files, setFiles] = useState<UploadedFile[]>([])
   const [dragActive, setDragActive] = useState(false)
 
-  const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: { file: File; errors: { message: string }[] }[]) => {
+  const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
     // Handle accepted files
     const newFiles: UploadedFile[] = acceptedFiles.map(file => ({
       file,
