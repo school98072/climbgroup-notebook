@@ -32,7 +32,7 @@ export function GroupCard({
   onLeave,
   className
 }: GroupCardProps) {
-  const privacyIcon = {
+  const PrivacyIcon = {
     public: Users,
     private: Lock,
     invite: Lock
@@ -70,7 +70,7 @@ export function GroupCard({
             </Link>
             <div className="flex items-center gap-2 mt-1">
               <Badge variant="outline" className="text-xs">
-                <privacyIcon className="h-3 w-3 mr-1" />
+                <PrivacyIcon className="h-3 w-3 mr-1" />
                 {privacyLabel}
               </Badge>
               <span className="text-xs text-muted-foreground">
