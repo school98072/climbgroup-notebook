@@ -1,5 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import type { Database } from '@/types/supabase'
+
+type GroupPrivacy = Database['public']['Tables']['groups']['Row']['privacy']
+type GroupAccess = {
+  id: string
+  privacy: GroupPrivacy
+}
 
 export async function POST(
   request: NextRequest,
@@ -20,11 +27,13 @@ export async function POST(
       .eq('id', params.id)
       .single()
 
-    if (!group) {
+    const groupAccess = group as GroupAccess | null
+
+    if (!groupAccess) {
       return NextResponse.json({ error: 'Group not found' }, { status: 404 })
     }
 
-    if (group.privacy !== 'public') {
+    if (groupAccess.privacy !== 'public') {
       return NextResponse.json(
         { error: 'This group is not public. Request to join instead.' },
         { status: 403 }
